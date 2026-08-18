@@ -22,28 +22,27 @@ Calculating skill matches and career paths in a traditional Relational Database 
 3. **Flexible Schema:** Adding new entity types (e.g., `Certifications`, `Projects`) requires zero structural migration or table alter scripts.
 
 ---
+### 📊 Graph Data Model
 
-## 📊 Graph Data Model
+```text
 
-The domain model contains 4 node types and 4 relationship types:
+  (Person) ---[:HAS_SKILL]---> (Skill) ---[:PREREQUISITE_FOR]---> (Skill)
+                                  ^                                  |
+                                  |                             [:COVERED_BY]
+                          [:REQUIRES_SKILL]                          v
+                                  |                               (Course)
+                               (Role)Y]->(:Course)
 
+```
 
-(Person) -[:HAS_SKILL]-> (Skill) -[:PREREQUISITE_FOR]-> (Skill)
-|                        ^                             |
-|                        |                             v
-|                 [:REQUIRES_SKILL]              [:COVERED_BY]
-v                        |                             v
-(Role) --------------------+                         (Course)
-
-
-Node Labels & Attributes
-:Person — {id: String, name: String}
-:Skill — {id: String, name: String}
-:Role — {id: String, title: String}
-:Course — {id: String, title: String, url: String}
+# Node Labels & Attributes
+* Person — {id: String, name: String}
+* Skill — {id: String, name: String}
+* Role — {id: String, title: String}
+* Course — {id: String, title: String, url: String}
 
 Relationship Types
-(:Person)-[:HAS_SKILL]->(:Skill)
-(:Role)-[:REQUIRES_SKILL]->(:Skill)
-(:Skill)-[:PREREQUISITE_FOR]->(:Skill)
-(:Skill)-[:COVERED_BY]->(:Course)
+* Person - :HAS_SKILL -> Skill
+* Role - :REQUIRES_SKILL -> Skill
+* Skill - :PREREQUISITE_FOR -> Skill
+* Skill - :COVERED_BY -> Course
