@@ -19,7 +19,7 @@ public class DataSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        log.info("Running initial Cypher seed script against CognoDB...");
+        log.info("Running initial script against CognoDB...");
         try (Session session = driver.session()) {
             String seedCypher = """
                 MERGE (p1:Person {id: 'dev_alex', name: 'Alex Rivera'})
@@ -27,7 +27,7 @@ public class DataSeeder implements CommandLineRunner {
 
                 MERGE (s1:Skill {id: 'skill_java', name: 'Java'})
                 MERGE (s2:Skill {id: 'skill_spring', name: 'Spring Boot'})
-                MERGE (s3:Skill {id: 'skill_cypher', name: 'Cypher / Neo4j'})
+                MERGE (s3:Skill {id: 'skill_cypher', name: 'Neo4j'})
                 MERGE (s4:Skill {id: 'skill_docker', name: 'Docker'})
                 MERGE (s5:Skill {id: 'skill_k8s', name: 'Kubernetes'})
                 MERGE (s6:Skill {id: 'skill_react', name: 'React'})
@@ -36,8 +36,8 @@ public class DataSeeder implements CommandLineRunner {
                 MERGE (r2:Role {id: 'role_graph_arch', title: 'Graph Architect'})
                 MERGE (r3:Role {id: 'role_devops', title: 'DevOps Engineer'})
 
-                MERGE (c1:Course {id: 'course_neo4j', title: 'Mastering Cypher & Graphs', url: 'https://cognodb.com'})
-                MERGE (c2:Course {id: 'course_k8s', title: 'Kubernetes in Action', url: 'https://kubernetes.io'})
+                MERGE (c1:Course {id: 'course_neo4j', title: 'Mastering Cypher & Graphs'})
+                MERGE (c2:Course {id: 'course_k8s', title: 'Kubernetes in Action'})
 
                 MERGE (p1)-[:HAS_SKILL]->(s1)
                 MERGE (p1)-[:HAS_SKILL]->(s2)
@@ -59,7 +59,6 @@ public class DataSeeder implements CommandLineRunner {
                 MERGE (s5)-[:COVERED_BY]->(c2)
                 """;
 
-            // Fix: Consume the result explicitly before ending the write unit
             session.executeWriteWithoutResult(tx -> tx.run(seedCypher).consume());
             log.info("CognoDB seed complete.");
         } catch (Exception e) {

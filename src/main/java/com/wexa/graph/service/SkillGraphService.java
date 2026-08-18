@@ -79,9 +79,7 @@ public class SkillGraphService {
                     new SkillGap(
                         r.get("skillId").asString(),
                         r.get("skillName").asString(),
-                        r.get("courseTitle").isNull() ? "N/A" : r.get("courseTitle").asString(),
-                        r.get("courseUrl").isNull() ? "#" : r.get("courseUrl").asString()
-                    )
+                        r.get("courseTitle").isNull() ? "N/A" : r.get("courseTitle").asString())
                 )
             );
         }
