@@ -69,8 +69,7 @@ public class SkillGraphService {
             OPTIONAL MATCH (missing)-[:COVERED_BY]->(c:Course)
             RETURN missing.id AS skillId, 
                    missing.name AS skillName, 
-                   c.title AS courseTitle, 
-                   c.url AS courseUrl
+                   c.title AS courseTitle
             """;
 
         try (var session = driver.session()) {
