@@ -1,0 +1,8 @@
+# Ignore environment secrets
+.env
+
+# Build outputs
+target/
+*.class
+.idea/
+*.iml
